@@ -3,38 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nullware Labs</title>
-<meta name="description" content="Nullware Labs is an independent studio building Windows utilities, Android apps and Telegram bots.">
+<title>Nullware Labs · Independent Software Studio</title>
+<meta name="description" content="Nullware Labs is an independent software studio building Windows utilities, Android applications, Telegram bots, and developer tools.">
 <link rel="canonical" href="https://nullwarelabs.github.io/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="Nullware Labs">
-<meta property="og:title" content="Nullware Labs"><meta property="og:description" content="Independent studio building Windows utilities, Android apps and Telegram bots.">
-<meta property="og:url" content="https://nullwarelabs.github.io/"><meta property="og:image" content="https://nullwarelabs.github.io/assets/logo/nullware_logo.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nullware Labs">
+<meta property="og:title" content="Nullware Labs · Independent Software Studio">
+<meta property="og:description" content="Independent software studio building Windows utilities, Android apps, and Telegram bots.">
+<meta property="og:url" content="https://nullwarelabs.github.io/">
+<meta property="og:image" content="https://nullwarelabs.github.io/assets/logo/nullware_logo.png">
+<meta name="twitter:card" content="summary">
 <link rel="icon" href="assets/logo/nullware_logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>try{var t=localStorage.getItem('nullware-theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
-<header><div class="wrap">
- <a class="brand" href="#/">null<span>ware</span> labs</a>
- <nav id="nav" aria-label="Main">
-  <a href="#/products" data-i="navProducts"></a><a href="#/about" data-i="navAbout"></a><a href="#/contact" data-i="contact"></a>
- </nav>
- <button class="btn" id="searchBtn" aria-label="Search"><span aria-hidden="true">⌕</span><span class="lbl" data-i="search"></span> <kbd id="kbd">Ctrl K</kbd></button>
- <select id="lang" aria-label="Language">
-  <option value="en">EN</option><option value="ru">RU</option><option value="ua">UA</option><option value="es">ES</option><option value="fr">FR</option><option value="nl">NL</option><option value="de">DE</option>
- </select>
- <button class="btn" id="theme" aria-label="Toggle theme">◐</button>
- <button class="btn" id="menu" aria-label="Menu" aria-expanded="false">☰</button>
-</div></header>
-<main id="app" class="wrap" tabindex="-1"></main>
-<footer><div class="wrap">
- <span data-i="copyright"></span>
- <span><a href="https://github.com/nullwarelabs" target="_blank" rel="noopener">GitHub</a> · <a href="https://play.google.com/store/apps/dev?id=6446780682856756622" target="_blank" rel="noopener">Google Play</a> · <a href="mailto:nullwarelabs@duck.com">nullwarelabs@duck.com</a> · <a href="https://www.paypal.com/paypalme/YaroslavStepura" target="_blank" rel="noopener" data-i="support"></a></span>
-</div></footer>
-<dialog id="pal" aria-label="Search"><input id="q" type="search" autocomplete="off"><ul id="res"></ul></dialog>
-<noscript><p style="padding:20px">This site needs JavaScript. Contact: nullwarelabs@duck.com</p></noscript>
+<a class="skip-link" href="#app">Skip to content</a>
+<header class="site-header">
+ <div class="wrap header-inner">
+  <a class="brand" href="#/" aria-label="Nullware Labs Home">
+   <img src="assets/logo/nullware_logo.png" alt="" width="24" height="24" class="brand-logo" onerror="this.style.display='none'">
+   <span>null<mark>ware</mark> labs</span>
+  </a>
+  <nav id="nav" class="main-nav" aria-label="Main navigation">
+   <a href="#/products" data-i="navProducts">Products</a>
+   <a href="#/projects" data-i="navProjects">Projects</a>
+   <a href="#/changelog" data-i="navChangelog">Changelog</a>
+   <a href="#/docs" data-i="navDocs">Docs</a>
+   <a href="#/about" data-i="navAbout">About</a>
+   <a href="#/contact" data-i="contact">Contact</a>
+  </nav>
+  <div class="header-actions">
+   <button class="btn search-trigger" id="searchBtn" type="button" aria-label="Search">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <span class="lbl" data-i="search">Search</span>
+    <kbd id="kbd">Ctrl K</kbd>
+   </button>
+   <select id="lang" class="lang-select" aria-label="Language">
+    <option value="en">EN</option>
+    <option value="ru">RU</option>
+    <option value="ua">UA</option>
+    <option value="es">ES</option>
+    <option value="fr">FR</option>
+    <option value="nl">NL</option>
+    <option value="de">DE</option>
+   </select>
+   <button class="btn icon-btn" id="theme" type="button" aria-label="Toggle theme">
+    <svg class="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.93 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2m-14.93 7.07 1.41-1.41m11.32-11.32 1.41-1.41"/></svg>
+   </button>
+   <button class="btn icon-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+   </button>
+  </div>
+ </div>
+</header>
+
+<main id="app" class="wrap main-content" tabindex="-1"></main>
+
+<footer class="site-footer">
+ <div class="wrap footer-grid">
+  <div class="footer-brand">
+   <a class="brand" href="#/">null<mark>ware</mark> labs</a>
+   <p class="muted footer-desc" data-i="heroP">Nullware Labs builds Windows utilities, Android apps and Telegram bots. Local-first, minimal, and published openly.</p>
+   <p class="copyright" data-i="copyright">© 2026 Nullware · built with precision.</p>
+  </div>
+  <div class="footer-col">
+   <h4 data-i="navProducts">Products</h4>
+   <a href="#/products/swiftservice">SwiftService</a>
+   <a href="#/products/exolute">Exolute Converter</a>
+   <a href="#/products/askanonymousbot">@AskAnonymousBot</a>
+   <a href="#/projects" data-i="navProjects">Projects</a>
+  </div>
+  <div class="footer-col">
+   <h4 data-i="resources">Resources</h4>
+   <a href="#/docs" data-i="navDocs">Documentation</a>
+   <a href="#/changelog" data-i="navChangelog">Changelog</a>
+   <a href="#/about" data-i="navAbout">About</a>
+   <a href="exolute-privacy-policy.html">Exolute Privacy Policy</a>
+  </div>
+  <div class="footer-col">
+   <h4 data-i="connect">Connect</h4>
+   <a href="https://github.com/nullwarelabs" target="_blank" rel="noopener">GitHub</a>
+   <a href="https://play.google.com/store/apps/dev?id=6446780682856756622" target="_blank" rel="noopener">Google Play</a>
+   <a href="mailto:nullwarelabs@duck.com">nullwarelabs@duck.com</a>
+   <a href="https://www.paypal.com/paypalme/YaroslavStepura" target="_blank" rel="noopener" data-i="support">Support the studio</a>
+  </div>
+ </div>
+</footer>
+
+<dialog id="pal" class="cmd-dialog" aria-label="Global search">
+ <div class="cmd-head">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+  <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search products, docs, changelog...">
+  <button class="btn cmd-esc" id="closePal" type="button">ESC</button>
+ </div>
+ <ul id="res" class="cmd-list" role="listbox"></ul>
+</dialog>
+
+<noscript><p class="wrap" style="padding:24px 0">Nullware Labs requires JavaScript for interactive navigation. Contact: <a href="mailto:nullwarelabs@duck.com">nullwarelabs@duck.com</a></p></noscript>
 <script src="assets/js/i18n.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
