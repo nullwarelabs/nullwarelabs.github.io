@@ -839,7 +839,7 @@ function route() {
   const a = parts[0];
   const b = parts[1];
   let html = '';
-  let title = 'Nullware Labs · Independent Software Studio';
+  let title = 'Nullware Labs';
 
   if (!a) {
     html = views.home();

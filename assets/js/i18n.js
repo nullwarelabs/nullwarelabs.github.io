@@ -360,7 +360,6 @@ const extra = {
     theme: 'Toggle theme',
     language: 'Language',
     menu: 'Menu',
-    heroKicker: 'Independent software studio',
     heroH: 'Software engineered to do one job well.',
     heroP: 'Nullware Labs builds Windows utilities, Android applications, and Telegram bots. Local-first, minimal, and published openly.',
     ctaProducts: 'Explore products',
