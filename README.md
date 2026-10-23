@@ -1,6 +1,6 @@
 <div align="center">
 
-# nullware
+# nullwarelabs
 
 **This repository hosts our website via GitHub Pages.**
 
