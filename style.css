@@ -1,0 +1,41 @@
+html, body {
+  background-color: #0C0C0C;
+  font-family: 'Kanit', sans-serif;
+  color: #D7E2EA;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero-heading {
+  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-gradient {
+  background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+  box-shadow: 0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset;
+  outline: 2px solid white;
+  outline-offset: -3px;
+}
+
+/* Contact modal */
+.modal {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-panel {
+  opacity: 0;
+  transform: scale(0.92) translateY(20px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.modal.open .modal-panel {
+  opacity: 1;
+  transform: none;
+}
