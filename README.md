@@ -2,7 +2,7 @@
 
 Small independent software for Windows, Android and Telegram.
 
-Website: https://nullwarelabs.github.io
+[![Website](https://img.shields.io/badge/Website-nullwarelabs.github.io-6C63FF?style=for-the-badge)](https://nullwarelabs.github.io)
 
 ## Projects
 
@@ -12,8 +12,9 @@ Website: https://nullwarelabs.github.io
 
 ## Contact
 
-nullwarelabs@duck.com
+[![Email](https://img.shields.io/badge/Email-nullwarelabs@duck.com-orange?style=for-the-badge)](mailto:nullwarelabs@duck.com)
+[![Telegram](https://img.shields.io/badge/Telegram-AskAnonymousBot-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/AskAnonymousBot)
 
 ## Support
 
-https://www.paypal.com/paypalme/mentalhash
+[![PayPal](https://img.shields.io/badge/Donate-PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/mentalhash)
