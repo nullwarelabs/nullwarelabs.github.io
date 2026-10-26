@@ -363,7 +363,6 @@
   }
 
 
-  /* ---------- Contact form (sent in the background, no page redirect) ---------- */
   function initForm() {
     var form = document.getElementById('contact-form');
     var status = document.getElementById('form-status');
@@ -381,27 +380,26 @@
       btn.textContent = 'Sending...';
       status.className = 'hidden';
 
-      fetch('https://formsubmit.co/ajax/' + MAIL, {
+      fetch(form.action, {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
         body: new FormData(form)
       })
-        .then(function (r) {
-          return r.json().then(function (j) { return { ok: r.ok, data: j }; });
-        })
-        .then(function (res) {
-          var success = res.ok && (res.data.success === true || res.data.success === 'true');
-          if (!success) throw new Error('failed');
+      .then(function (response) {
+        if (response.ok) {
           form.reset();
           setStatus('Message sent. Thank you!', true);
-        })
-        .catch(function () {
+        } else {
           setStatus('Could not send the message. Please email ' + MAIL + ' directly.', false);
-        })
-        .then(function () {
-          btn.disabled = false;
-          btn.textContent = 'Send Message';
-        });
+        }
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      })
+      .catch(function () {
+        setStatus('Could not send the message. Please email ' + MAIL + ' directly.', false);
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      });
     });
   }
 
