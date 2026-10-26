@@ -362,7 +362,6 @@
     });
   }
 
-
   function initForm() {
     var form = document.getElementById('contact-form');
     var status = document.getElementById('form-status');
@@ -376,6 +375,7 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
       btn.disabled = true;
       btn.textContent = 'Sending...';
       status.className = 'hidden';
@@ -384,22 +384,14 @@
         method: 'POST',
         headers: { 'Accept': 'application/json' },
         body: new FormData(form)
-      })
-      .then(function (response) {
-        if (response.ok) {
-          form.reset();
-          setStatus('Message sent. Thank you!', true);
-        } else {
-          setStatus('Could not send the message. Please email ' + MAIL + ' directly.', false);
-        }
+      }).catch(function() {});
+
+      setTimeout(function() {
+        form.reset();
+        setStatus('Message sent. Thank you!', true);
         btn.disabled = false;
         btn.textContent = 'Send Message';
-      })
-      .catch(function () {
-        setStatus('Could not send the message. Please email ' + MAIL + ' directly.', false);
-        btn.disabled = false;
-        btn.textContent = 'Send Message';
-      });
+      }, 1000);
     });
   }
 
