@@ -375,23 +375,31 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      
       btn.disabled = true;
       btn.textContent = 'Sending...';
       status.className = 'hidden';
 
-      fetch(form.action, {
+      fetch('https://formsubmit.co/ajax/' + MAIL, {
         method: 'POST',
-        mode: 'no-cors',
+        headers: { 'Accept': 'application/json' },
         body: new FormData(form)
-      }).catch(function() {});
-
-      setTimeout(function() {
-        form.reset();
-        setStatus('Message sent. Thank you!', true);
-        btn.disabled = false;
-        btn.textContent = 'Send Message';
-      }, 1000);
+      })
+        .then(function (r) {
+          return r.json().then(function (j) { return { ok: r.ok, data: j }; });
+        })
+        .then(function (res) {
+          var success = res.ok && (res.data.success === true || res.data.success === 'true');
+          if (!success) throw new Error('failed');
+          form.reset();
+          setStatus('Message sent. Thank you!', true);
+        })
+        .catch(function () {
+          setStatus('Could not send the message. Please email ' + MAIL + ' directly.', false);
+        })
+        .then(function () {
+          btn.disabled = false;
+          btn.textContent = 'Send Message';
+        });
     });
   }
 
