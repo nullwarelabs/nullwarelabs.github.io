@@ -362,6 +362,49 @@
     });
   }
 
+
+  /* ---------- Contact form (sent in the background, no page redirect) ---------- */
+  function initForm() {
+    var form = document.getElementById('contact-form');
+    var status = document.getElementById('form-status');
+    var btn = document.getElementById('form-submit');
+    if (!form) return;
+
+    function setStatus(text, ok) {
+      status.textContent = text;
+      status.className = 'text-sm font-light ' + (ok ? 'text-emerald-400' : 'text-red-400');
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      status.className = 'hidden';
+
+      fetch('https://formsubmit.co/ajax/' + MAIL, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      })
+        .then(function (r) {
+          return r.json().then(function (j) { return { ok: r.ok, data: j }; });
+        })
+        .then(function (res) {
+          var success = res.ok && (res.data.success === true || res.data.success === 'true');
+          if (!success) throw new Error('failed');
+          form.reset();
+          setStatus('Message sent. Thank you!', true);
+        })
+        .catch(function () {
+          setStatus('Could not send the message. Please email ' + MAIL + ' directly.', false);
+        })
+        .then(function () {
+          btn.disabled = false;
+          btn.textContent = 'Send Message';
+        });
+    });
+  }
+
   /* ---------- Init ---------- */
   renderServices();
   renderProjects();
@@ -370,6 +413,7 @@
   initFade();
   initNav();
   initModal();
+  initForm();
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   onScroll();
