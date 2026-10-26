@@ -375,14 +375,14 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-
+      
       btn.disabled = true;
       btn.textContent = 'Sending...';
       status.className = 'hidden';
 
       fetch(form.action, {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
+        mode: 'no-cors',
         body: new FormData(form)
       }).catch(function() {});
 
