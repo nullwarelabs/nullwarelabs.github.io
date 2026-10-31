@@ -5,21 +5,356 @@
   var SWIFTSERVICE_URL = 'https://github.com/nullwarelabs/nullwarelabs.github.io/releases/latest/download/SwiftService_Setup.exe';
   var EXOLUTE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.saieesoft.exolute&pcampaignid=web_share';
   var ASKANONYMOUS_URL = 'https://t.me/AskAnonymousBot';
+  var VAULTYS_URL = 'https://t.me/VaultysBot';
 
-  /* ---------- Icons (lucide, inline SVG) ---------- */
+  var MARQUEE_ITEMS = [
+    'Windows Utilities',
+    'Android Apps',
+    'Telegram Bots',
+    'Web Design',
+    '3D Modeling',
+    'Covers & Graphics',
+    'Photo Editing',
+    'Python',
+    'Kotlin',
+    'Zero-Telemetry'
+  ];
+
+  var STATS = [
+    { value: '100%', label: { en: 'local-first privacy', ru: 'приватность и локальность' } },
+    { value: 'Code + 3D', label: { en: 'software, web & visuals', ru: 'софт, веб и визуал' } },
+    { value: '4', label: { en: 'shipped products', ru: 'готовых продукта' } }
+  ];
+
+  var SERVICES = [
+    {
+      number: '01',
+      name: { en: 'Windows Utilities', ru: 'Утилиты для Windows' },
+      description: {
+        en: 'Creation of fast, lightweight desktop tools for system cleanup, registry repair, DNS optimization, and performance tuning with zero background bloat.',
+        ru: 'Создание быстрых и легковесных десктопных утилит для очистки системы, исправления реестра, оптимизации DNS и повышения производительности без фонового мусора.'
+      }
+    },
+    {
+      number: '02',
+      name: { en: 'Android Applications', ru: 'Android-приложения' },
+      description: {
+        en: 'Designing and building native mobile experiences with clean interfaces, real-time data synchronization, and reliable offline-first architecture.',
+        ru: 'Проектирование и разработка нативных мобильных приложений с чистым интерфейсом, синхронизацией в реальном времени и надежной offline-first архитектурой.'
+      }
+    },
+    {
+      number: '03',
+      name: { en: 'Telegram Bots', ru: 'Telegram-боты' },
+      description: {
+        en: 'Custom high-speed bots and automated workflows focused on instant message routing, end-to-end user privacy, and effortless interaction.',
+        ru: 'Быстрые кастомные боты и автоматизация процессов с фокусом на мгновенную маршрутизацию сообщений, приватность пользователей и удобство.'
+      }
+    },
+    {
+      number: '04',
+      name: { en: 'Web Design, Covers & Photo Graphics', ru: 'Дизайн сайтов, обложки и графика' },
+      description: {
+        en: 'Crafting cohesive visual identities, modern website designs, album/project cover art, social media visuals, and photo editing with a sharp, memorable aesthetic.',
+        ru: 'Разработка дизайна сайтов и интерфейсов, создание обложек, баннеров, визуального оформления проектов и качественная обработка фото в чистом современном стиле.'
+      }
+    },
+    {
+      number: '05',
+      name: { en: 'Web & Custom Software', ru: 'Веб-разработка и кастомный софт' },
+      description: {
+        en: 'Engineering modern, responsive web experiences and bespoke single-purpose software tailored to solve real problems with precision.',
+        ru: 'Создание современных адаптивных веб-сайтов и узкоспециализированного софта, точно решающего конкретные прикладные задачи.'
+      }
+    },
+    {
+      number: '06',
+      name: { en: '3D Modeling & Visualization', ru: '3D-моделирование и визуализация' },
+      description: {
+        en: 'Creating custom 3D models, functional parts, product renders, and stylized 3D assets for digital visuals, web scenes, or 3D printing.',
+        ru: 'Создание кастомных 3D-моделей, функциональных деталей, рендеров и стилизованных 3D-ассетов для дизайна, веба или 3D-печати.'
+      }
+    }
+  ];
+
+  var PROJECTS = [
+    {
+      id: 'exolute',
+      number: '01',
+      category: { en: 'Android App', ru: 'Android-приложение' },
+      name: 'Exolute Converter',
+      href: EXOLUTE_PLAY_URL,
+      cta: { en: 'Google Play', ru: 'Google Play' },
+      images: ['src/projects/exolute.png'],
+      cardTopTitle: { en: 'Offline-Ready Mode', ru: 'Работа без интернета' },
+      cardTopSub: {
+        en: 'Automatically caches the latest synchronized exchange rates on your device so you can convert currencies anywhere.',
+        ru: 'Автоматически кэширует последние актуальные курсы валют на устройстве для конвертации в любом месте.'
+      },
+      cardTopTag: 'GOOGLE PLAY',
+      cardBottomTitle: { en: 'Financial Precision', ru: 'Финансовая точность' },
+      cardBottomList: {
+        en: [
+          'Real-time exchange rates across global currencies',
+          'Interactive historical rate charts & trends',
+          'Distraction-free, minimal Material interface',
+          'Instant multi-currency calculation'
+        ],
+        ru: [
+          'Курсы мировых валют в реальном времени',
+          'Интерактивные графики истории и трендов',
+          'Минималистичный Material-интерфейс без лишнего шума',
+          'Мгновенный мультивалютный пересчет'
+        ]
+      },
+      mainVisualTitle: 'EXOLUTE CONVERTER',
+      mainVisualSubtitle: {
+        en: 'Real-time currency converter with historical data, offline mode, and a sharp, minimal interface.',
+        ru: 'Конвертер валют в реальном времени с историей курсов, офлайн-режимом и чистым минималистичным интерфейсом.'
+      },
+      iconName: 'smartphone'
+    },
+    {
+      id: 'askanonymousbot',
+      number: '02',
+      category: { en: 'Telegram Bot', ru: 'Telegram-бот' },
+      name: '@AskAnonymousBot',
+      href: ASKANONYMOUS_URL,
+      cta: { en: 'Open in Telegram', ru: 'Открыть в Telegram' },
+      images: ['src/projects/askanonymousbot.png'],
+      cardTopTitle: { en: 'End-to-End Anonymity', ru: 'Полная анонимность' },
+      cardTopSub: {
+        en: 'Routes anonymous questions and replies directly inside Telegram without storing message history or sender metadata.',
+        ru: 'Доставляет анонимные вопросы и ответы прямо в Telegram без сохранения истории сообщений и метаданных отправителя.'
+      },
+      cardTopTag: 'TELEGRAM',
+      cardBottomTitle: { en: 'Instant Q&A Flow', ru: 'Мгновенные вопросы и ответы' },
+      cardBottomList: {
+        en: [
+          'Personal shareable link generated in one tap',
+          'Zero persistent message content storage',
+          'Native swipe-to-reply workflow inside Telegram',
+          'Built-in anti-spam & privacy controls'
+        ],
+        ru: [
+          'Генерация персональной ссылки в одно касание',
+          'Отсутствие постоянного хранения текста сообщений',
+          'Нативный ответ свайпом прямо внутри Telegram',
+          'Встроенная защита от спама и настройки приватности'
+        ]
+      },
+      mainVisualTitle: '@ASKANONYMOUSBOT',
+      mainVisualSubtitle: {
+        en: 'Telegram bot for anonymous messaging with end-to-end privacy and no data storage.',
+        ru: 'Telegram-бот для анонимных сообщений с полной приватностью и без сохранения данных.'
+      },
+      iconName: 'message-square'
+    },
+    {
+      id: 'vaultysbot',
+      number: '03',
+      category: { en: 'Telegram Bot', ru: 'Telegram-бот' },
+      name: '@VaultysBot',
+      href: VAULTYS_URL,
+      cta: { en: 'Open in Telegram', ru: 'Открыть в Telegram' },
+      images: ['src/projects/vaultysbot.png'],
+      cardTopTitle: { en: 'Anti-Delete & Self-Destruct Saver', ru: 'Защита от удаления и сохранение таймеров' },
+      cardTopSub: {
+        en: 'Instantly notifies you when an interlocutor edits or deletes a message, and saves view-once media with timers.',
+        ru: 'Моментально пришлет уведомление, если собеседник изменит или удалит сообщение, и скачает исчезающие медиа с таймером.'
+      },
+      cardTopTag: 'TELEGRAM',
+      cardBottomTitle: { en: 'Message Recovery Suite', ru: 'Контроль переписки и медиа' },
+      cardBottomList: {
+        en: [
+          'Instant alerts on deleted or edited messages',
+          'Saves view-once photos and videos with timers',
+          'Downloads disappearing voice messages & video notes',
+          'Seamless integration directly inside Telegram'
+        ],
+        ru: [
+          'Моментальные уведомления об изменении или удалении сообщений',
+          'Скачивание одноразовых фото и видео с таймером',
+          'Сохранение исчезающих голосовых и видеокружков',
+          'Быстрая и удобная работа прямо внутри Telegram'
+        ]
+      },
+      mainVisualTitle: '@VAULTYSBOT',
+      mainVisualSubtitle: {
+        en: 'Telegram assistant that catches edited or deleted messages and downloads self-destructing photos, videos, voice notes, and video circles.',
+        ru: 'Telegram-бот, который моментально уведомляет об измененных и удаленных сообщениях, а также скачивает одноразовые фото, видео, голосовые и кружки с таймером.'
+      },
+      iconName: 'eye'
+    },
+    {
+      id: 'swiftservice',
+      number: '04',
+      category: { en: 'Windows Utility', ru: 'Утилита Windows' },
+      name: 'SwiftService',
+      href: SWIFTSERVICE_URL,
+      cta: { en: 'Download .exe', ru: 'Скачать .exe' },
+      images: ['src/projects/swiftservice.png'],
+      cardTopTitle: { en: 'Zero-Telemetry Architecture', ru: 'Архитектура без телеметрии' },
+      cardTopSub: {
+        en: 'All system cleanup, registry repair, and network tuning runs 100% locally on your machine with no background tracking.',
+        ru: 'Очистка системы, ремонт реестра и настройка сети выполняются на 100% локально на вашем ПК без фоновой слежки.'
+      },
+      cardTopTag: 'WINDOWS 10 / 11',
+      cardBottomTitle: { en: 'Core Optimization Suite', ru: 'Комплекс оптимизации' },
+      cardBottomList: {
+        en: [
+          'Deep system cleanup & temporary junk removal',
+          'Safe registry maintenance & broken key repair',
+          'Low-latency network & DNS configuration tools',
+          'Game mode & background performance tuning'
+        ],
+        ru: [
+          'Глубокая очистка системы и временных файлов',
+          'Безопасное обслуживание и исправление ключей реестра',
+          'Настройка сети и DNS для минимальной задержки',
+          'Игровой режим и оптимизация фоновых процессов'
+        ]
+      },
+      mainVisualTitle: 'SWIFTSERVICE ENGINE',
+      mainVisualSubtitle: {
+        en: 'Comprehensive Windows optimization suite - clean, repair, and tune your system in one lightweight application.',
+        ru: 'Комплексный пакет оптимизации Windows - очистка, исправление и настройка системы в одном легковесном приложении.'
+      },
+      iconName: 'cpu'
+    }
+  ];
+
+  var STACK = [
+    { name: 'Telegram Bot API', category: { en: 'Business & Stars API', ru: 'Business и Stars API' }, level: 'Sr' },
+    { name: 'Python', category: { en: 'Backend / Desktop / Bots', ru: 'Бэкенд / Десктоп / Боты' }, level: 'Sr' },
+    { name: 'JavaScript / HTML / CSS', category: { en: 'Frontend & Web UI', ru: 'Фронтенд и веб-интерфейсы' }, level: 'Sr' },
+    { name: 'UI & Web Design', category: { en: 'UI/UX, Sites & Layouts', ru: 'UI/UX, дизайн сайтов' }, level: 'Mid' },
+    { name: 'Graphics & Photo', category: { en: 'Covers, Visuals & Retouch', ru: 'Обложки, фото и графика' }, level: 'Mid' },
+    { name: '3D Modeling & CAD', category: { en: '3D Models, Renders & Print', ru: '3D-модели, рендеры и печать' }, level: 'Mid' },
+    { name: 'Kotlin / Android SDK', category: { en: 'Mobile Development', ru: 'Мобильная разработка' }, level: 'Sr' },
+    { name: 'CustomTkinter / WinAPI', category: { en: 'Windows Utilities', ru: 'Утилиты под Windows' }, level: 'Mid' },
+    { name: 'SQL / SQLite / PostgreSQL', category: { en: 'Databases', ru: 'Базы данных' }, level: 'Mid' },
+    { name: 'Docker, Linux & Git', category: { en: 'Deployment & Infra', ru: 'Деплой и инфраструктура' }, level: 'Sr' }
+  ];
+
+  var SOCIALS = [
+    {
+      id: 'telegram',
+      label: 'Telegram',
+      handle: '@nullwr',
+      href: 'https://t.me/nullwr',
+      icon: 'send'
+    },
+    {
+      id: 'github',
+      label: 'GitHub',
+      handle: 'github.com/nullwarelabs',
+      href: 'https://github.com/nullwarelabs',
+      icon: 'github'
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      handle: MAIL,
+      copy: MAIL,
+      icon: 'copy'
+    },
+    {
+      id: 'support',
+      label: 'Support by PayPal',
+      handle: 'paypal.me/mentalhash',
+      href: 'https://www.paypal.com/paypalme/mentalhash',
+      icon: 'heart'
+    }
+  ];
+
+  var I18N = {
+    en: {
+      'nav.about': 'about',
+      'nav.services': 'services',
+      'nav.projects': 'projects',
+      'nav.stack': 'stack',
+      'hero.status': 'online · ready to build',
+      'hero.uptime': 'up',
+      'hero.subtitle': 'an independent developer crafting minimal and focused digital tools',
+      'hero.contactBtn': 'Contact Me',
+      'hero.projectsBtn': 'Projects',
+      'about.title': 'about me',
+      'about.text': "I am an independent developer building minimalist utilities with sharp design for Windows, Android, and Telegram. Every tool is crafted to do one job well with local-first privacy, high speed, and zero clutter. Beyond code, I create web designs, 3D models, cover art, and photo graphics. Let's build something incredible together!",
+      'services.title': 'services',
+      'projects.title': 'projects',
+      'projects.badge': 'shipped builds',
+      'stack.title': 'stack & tools',
+      'links.title': 'where to find me',
+      'links.copyEmail': 'Copy Email',
+      'links.copied': 'Copied',
+      'links.support': 'Support',
+      'links.ctaTitle': 'Got an idea, design, or custom tool request?',
+      'links.ctaSub': 'Direct form or email - fast response, zero bureaucracy.',
+      'links.ctaBtn': "Let's Talk",
+      'footer.contact': 'direct contact →',
+      'modal.eyebrow': 'Direct Contact',
+      'modal.title': "Let's Talk",
+      'modal.desc': 'Have a software, web design, or 3D project in mind? Reach out directly via email or send a message below.',
+      'modal.namePlaceholder': 'Your name',
+      'modal.emailPlaceholder': 'Your email',
+      'modal.msgPlaceholder': 'Tell me about your idea...',
+      'modal.sendBtn': 'Send Message',
+      'modal.sending': 'Sending...',
+      'modal.sentOk': 'Message sent. Thank you!',
+      'modal.sentErr': 'Could not send the message. Please email ' + MAIL + ' directly.'
+    },
+    ru: {
+      'nav.about': 'обо мне',
+      'nav.services': 'услуги',
+      'nav.projects': 'проекты',
+      'nav.stack': 'стек',
+      'hero.status': 'в сети · открыт к проектам',
+      'hero.uptime': 'онлайн',
+      'hero.subtitle': 'независимый разработчик минималистичных и сфокусированных цифровых утилит',
+      'hero.contactBtn': 'Связаться',
+      'hero.projectsBtn': 'Проекты',
+      'about.title': 'обо мне',
+      'about.text': 'Я независимый разработчик минималистичных утилит с выверенным дизайном для Windows, Android и Telegram. Каждый инструмент создается, чтобы отлично решать свою задачу: с локальной приватностью, высокой скоростью и без лишнего шума. Помимо кода, занимаюсь веб-дизайном, 3D-моделированием, созданием обложек и обработкой фото. Давайте создадим что-то крутое вместе!',
+      'services.title': 'услуги',
+      'projects.title': 'проекты',
+      'projects.badge': 'релизы',
+      'stack.title': 'стек и инструменты',
+      'links.title': 'где меня найти',
+      'links.copyEmail': 'Скопировать',
+      'links.copied': 'Скопировано',
+      'links.support': 'Поддержать',
+      'links.ctaTitle': 'Нужен софт, дизайн сайта, обложка или 3D-модель?',
+      'links.ctaSub': 'Напишите через форму или на почту - быстрый ответ без бюрократии.',
+      'links.ctaBtn': 'Написать',
+      'footer.contact': 'связаться напрямую →',
+      'modal.eyebrow': 'Прямой контакт',
+      'modal.title': 'Связаться',
+      'modal.desc': 'Есть идея для приложения, бота, дизайна или 3D-модели? Напишите напрямую на почту или отправьте сообщение ниже.',
+      'modal.namePlaceholder': 'Ваше имя',
+      'modal.emailPlaceholder': 'Ваш email',
+      'modal.msgPlaceholder': 'Расскажите о вашей задаче...',
+      'modal.sendBtn': 'Отправить сообщение',
+      'modal.sending': 'Отправка...',
+      'modal.sentOk': 'Сообщение отправлено. Спасибо!',
+      'modal.sentErr': 'Не удалось отправить. Пожалуйста, напишите напрямую на ' + MAIL + '.'
+    }
+  };
+
   var ICONS = {
     'send': '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
     'copy': '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
     'check': '<path d="M20 6 9 17l-5-5"/>',
     'arrow-up-right': '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
+    'arrow-down-right': '<path d="m7 7 10 10"/><path d="M17 7v10H7"/>',
     'x': '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
     'shield-check': '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
     'cpu': '<rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/>',
     'smartphone': '<rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/>',
     'message-square': '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
-    'wifi-off': '<path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/>',
-    'lock': '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
-    'heart': '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>'
+    'eye': '<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/>',
+    'heart': '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+    'github': '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>'
   };
 
   function icon(name, cls) {
@@ -31,298 +366,334 @@
     Array.prototype.forEach.call(nodes, function (el) {
       var wrap = document.createElement('span');
       wrap.innerHTML = icon(el.getAttribute('data-icon'), el.getAttribute('class'));
-      el.parentNode.replaceChild(wrap.firstChild, el);
-    });
-  }
-
-  /* ---------- Data ---------- */
-  var SERVICES = [
-    { number: '01', name: 'Windows Utilities', description: 'Creation of fast, lightweight desktop tools for system cleanup, registry repair, DNS optimization, and performance tuning with zero background bloat.' },
-    { number: '02', name: 'Android Applications', description: 'Designing and building native mobile experiences with clean interfaces, real-time data synchronization, and reliable offline-first architecture.' },
-    { number: '03', name: 'Telegram Bots', description: 'Custom high-speed bots and automated workflows focused on instant message routing, end-to-end user privacy, and effortless interaction.' },
-    { number: '04', name: 'UI / UX & Product Design', description: 'Crafting cohesive, minimal visual identities and sharp interfaces that communicate a clear and memorable presence across desktop and mobile.' },
-    { number: '05', name: 'Web & Custom Software', description: 'Engineering modern, responsive web experiences and bespoke single-purpose software tailored to solve real problems with precision.' }
-  ];
-
-  var PROJECTS = [
-    {
-      id: 'swiftservice', number: '01', category: 'Windows Utility', name: 'SwiftService', href: SWIFTSERVICE_URL,
-      cardTopTitle: 'Zero-Telemetry Architecture',
-      cardTopSub: 'All system cleanup, registry repair, and network tuning runs 100% locally on your machine with no background tracking.',
-      cardTopTag: 'WINDOWS 10 / 11',
-      cardBottomTitle: 'Core Optimization Suite',
-      cardBottomList: ['Deep system cleanup & temporary junk removal', 'Safe registry maintenance & broken key repair', 'Low-latency network & DNS configuration tools', 'Game mode & background performance tuning'],
-      mainVisualTitle: 'SWIFTSERVICE ENGINE',
-      mainVisualSubtitle: 'Comprehensive Windows optimization suite — clean, repair, and tune your system in one lightweight application.',
-      iconName: 'cpu'
-    },
-    {
-      id: 'exolute', number: '02', category: 'Android App', name: 'Exolute Converter', href: EXOLUTE_PLAY_URL,
-      cardTopTitle: 'Offline-Ready Mode',
-      cardTopSub: 'Automatically caches the latest synchronized exchange rates on your device so you can convert currencies anywhere.',
-      cardTopTag: 'GOOGLE PLAY',
-      cardBottomTitle: 'Financial Precision',
-      cardBottomList: ['Real-time exchange rates across global currencies', 'Interactive historical rate charts & trends', 'Distraction-free, minimal Material interface', 'Instant multi-currency calculation'],
-      mainVisualTitle: 'EXOLUTE CONVERTER',
-      mainVisualSubtitle: 'Real-time currency converter with historical data, offline mode, and a sharp, minimal interface.',
-      iconName: 'smartphone'
-    },
-    {
-      id: 'askanonymousbot', number: '03', category: 'Telegram Bot', name: '@AskAnonymousBot', href: ASKANONYMOUS_URL,
-      cardTopTitle: 'End-to-End Anonymity',
-      cardTopSub: 'Routes anonymous questions and replies directly inside Telegram without storing message history or sender metadata.',
-      cardTopTag: 'TELEGRAM',
-      cardBottomTitle: 'Instant Q&A Flow',
-      cardBottomList: ['Personal shareable link generated in one tap', 'Zero persistent message content storage', 'Native swipe-to-reply workflow inside Telegram', 'Built-in anti-spam & privacy controls'],
-      mainVisualTitle: '@ASKANONYMOUSBOT',
-      mainVisualSubtitle: 'Telegram bot for anonymous messaging with end-to-end privacy and no data storage.',
-      iconName: 'message-square'
-    }
-  ];
-
-  var SWIFT_MODULES = ['System Cleanup', 'Registry Repair', 'DNS & Network', 'Game Boost', 'Privacy Shield', 'EN / RU Local'];
-
-  /* ---------- Render: services ---------- */
-  function renderServices() {
-    var html = SERVICES.map(function (s, i) {
-      var borderTop = i === 0 ? 'border-top:1px solid rgba(12,12,12,0.15);' : '';
-      return '' +
-        '<div data-fade data-delay="' + (i * 0.1) + '" data-y="30">' +
-          '<div style="' + borderTop + 'border-bottom:1px solid rgba(12,12,12,0.15);" class="py-8 sm:py-10 md:py-12 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10 md:gap-16 group transition-colors duration-300">' +
-            '<span style="font-size:clamp(3rem,10vw,140px)" class="font-black text-[#0C0C0C] leading-none tracking-tight select-none min-w-[110px] sm:min-w-[160px] md:min-w-[210px] transition-transform duration-300 group-hover:translate-x-2">' + s.number + '</span>' +
-            '<div class="flex flex-col gap-2 sm:gap-3">' +
-              '<h3 style="font-size:clamp(1rem,2.2vw,2.1rem)" class="font-medium uppercase text-[#0C0C0C] tracking-wide">' + s.name + '</h3>' +
-              '<p style="font-size:clamp(0.85rem,1.6vw,1.25rem)" class="font-light leading-relaxed max-w-2xl text-[#0C0C0C] opacity-60">' + s.description + '</p>' +
-            '</div>' +
-          '</div>' +
-        '</div>';
-    }).join('');
-    document.getElementById('services-list').innerHTML = html;
-  }
-
-  /* ---------- Render: projects ---------- */
-  function centerpiece(p) {
-    if (p.id === 'swiftservice') {
-      return '<div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">' +
-        SWIFT_MODULES.map(function (m, i) {
-          return '<div class="rounded-3xl bg-black/45 border border-white/10 p-3.5 sm:p-4 backdrop-blur-md">' +
-            '<span class="text-[10px] uppercase tracking-widest text-[#B600A8] block mb-1">0' + (i + 1) + '</span>' +
-            '<span class="text-xs sm:text-sm font-medium text-white">' + m + '</span></div>';
-        }).join('') + '</div>';
-    }
-    if (p.id === 'exolute') {
-      return '<div class="rounded-3xl bg-black/45 border border-white/10 p-5 sm:p-6 backdrop-blur-md space-y-4">' +
-        '<div class="flex items-center justify-between text-xs uppercase tracking-widest text-[#D7E2EA]/60">' +
-          '<span>Real-Time Exchange</span>' +
-          '<span class="flex items-center gap-1.5 text-emerald-400">' + icon('wifi-off', 'w-3.5 h-3.5') + ' Offline Ready</span>' +
-        '</div>' +
-        '<div class="grid grid-cols-2 gap-3">' +
-          '<div class="rounded-2xl bg-white/5 p-3.5 border border-white/10"><span class="text-xs text-[#D7E2EA]/50 block">USD</span><span class="text-xl sm:text-2xl font-bold text-white">$1,000.00</span></div>' +
-          '<div class="rounded-2xl bg-[#B600A8]/20 p-3.5 border border-[#B600A8]/50"><span class="text-xs text-[#D7E2EA]/70 block">EUR</span><span class="text-xl sm:text-2xl font-bold text-white">€924.50</span></div>' +
-        '</div></div>';
-    }
-    return '<div class="rounded-3xl bg-black/45 border border-white/10 p-5 sm:p-6 backdrop-blur-md space-y-3">' +
-      '<div class="flex items-center gap-2 text-xs uppercase tracking-widest text-[#B600A8]">' + icon('lock', 'w-3.5 h-3.5') + ' Zero Data Storage</div>' +
-      '<p class="text-sm sm:text-base text-white font-light">&ldquo;Receive anonymous messages directly in Telegram with full end-to-end privacy.&rdquo;</p>' +
-      '<div class="text-xs text-[#D7E2EA]/50 uppercase tracking-wider">t.me/AskAnonymousBot</div></div>';
-  }
-
-  function projectCard(p, index, total) {
-    var list = p.cardBottomList.map(function (item) {
-      return '<li class="flex items-center gap-2.5 text-xs sm:text-sm text-[#D7E2EA]/85 font-light">' +
-        '<span class="w-1.5 h-1.5 rounded-full bg-[#B600A8] flex-shrink-0"></span><span class="truncate">' + item + '</span></li>';
-    }).join('');
-
-    return '' +
-    '<div data-sticky data-index="' + index + '" data-total="' + total + '" class="h-[85vh] sticky top-24 md:top-32 flex items-start justify-center w-full">' +
-      '<div class="sticky-card relative w-full max-w-6xl rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:p-6 md:p-8 shadow-[0_-20px_60px_rgba(0,0,0,0.9)]" style="top:' + (index * 28) + 'px;transform-origin:top center;">' +
-
-        '<div class="flex flex-wrap items-center justify-between gap-4 pb-5 sm:pb-7 px-2 sm:px-4">' +
-          '<div class="flex items-center gap-4 sm:gap-8">' +
-            '<span style="font-size:clamp(3rem,8vw,110px)" class="font-black text-[#D7E2EA] leading-none tracking-tight select-none">' + p.number + '</span>' +
-            '<div class="flex flex-col">' +
-              '<span class="text-[#D7E2EA]/60 text-xs sm:text-sm uppercase tracking-widest font-light">' + p.category + '</span>' +
-              '<h3 style="font-size:clamp(1.35rem,3vw,2.5rem)" class="text-[#D7E2EA] font-bold uppercase tracking-tight leading-tight">' + p.name + '</h3>' +
-            '</div>' +
-          '</div>' +
-          '<a href="' + p.href + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] font-medium uppercase tracking-widest px-8 py-3 sm:px-10 sm:py-3.5 text-sm sm:text-base hover:bg-[#D7E2EA]/10 transition-colors duration-200 cursor-pointer whitespace-nowrap select-none"><span>Live Project</span>' + icon('arrow-up-right', 'w-4 h-4') + '</a>' +
-        '</div>' +
-
-        '<div class="flex flex-col md:flex-row gap-3 sm:gap-4 w-full">' +
-          '<div class="w-full md:w-[40%] flex flex-col gap-3 sm:gap-4">' +
-            '<div style="height:clamp(130px,16vw,230px)" class="w-full overflow-hidden rounded-[40px] sm:rounded-[50px] md:rounded-[60px] bg-gradient-to-br from-[#181922] to-[#101116] border border-[#D7E2EA]/15 p-6 sm:p-8 flex flex-col justify-between">' +
-              '<div class="flex items-center justify-between">' +
-                '<span class="text-[11px] sm:text-xs uppercase tracking-widest text-[#B600A8] font-semibold">' + p.cardTopTag + '</span>' +
-                icon('shield-check', 'w-4 h-4 text-[#D7E2EA]/50') +
-              '</div>' +
-              '<div>' +
-                '<h4 class="text-base sm:text-xl font-bold uppercase text-[#D7E2EA] leading-tight mb-1">' + p.cardTopTitle + '</h4>' +
-                '<p class="text-xs sm:text-sm text-[#D7E2EA]/65 font-light line-clamp-2 leading-snug">' + p.cardTopSub + '</p>' +
-              '</div>' +
-            '</div>' +
-            '<div style="height:clamp(160px,22vw,340px)" class="w-full overflow-hidden rounded-[40px] sm:rounded-[50px] md:rounded-[60px] bg-[#13141B] border border-[#D7E2EA]/15 p-6 sm:p-8 flex flex-col justify-between">' +
-              '<span class="text-[11px] sm:text-xs uppercase tracking-widest text-[#D7E2EA]/45 font-medium">' + p.cardBottomTitle + '</span>' +
-              '<ul class="space-y-1.5 sm:space-y-2.5 my-auto">' + list + '</ul>' +
-              '<div class="text-[11px] uppercase tracking-widest text-[#D7E2EA]/40">NULLWARE · BUILT WITH PRECISION</div>' +
-            '</div>' +
-          '</div>' +
-
-          '<div style="min-height:clamp(280px,39vw,586px)" class="w-full md:w-[60%] overflow-hidden rounded-[40px] sm:rounded-[50px] md:rounded-[60px] bg-gradient-to-br from-[#18011F] via-[#12131A] to-[#260D2E] border border-[#D7E2EA]/20 p-7 sm:p-10 flex flex-col justify-between relative group">' +
-            '<div class="absolute -right-16 -bottom-16 w-72 h-72 rounded-full bg-[#B600A8]/20 blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-125"></div>' +
-            '<div class="flex items-center justify-between relative z-10">' +
-              '<span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/15 text-xs uppercase tracking-widest text-[#D7E2EA]">' + p.name + '</span>' +
-              '<div class="w-11 h-11 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-[#D7E2EA]">' + icon(p.iconName, 'w-5 h-5') + '</div>' +
-            '</div>' +
-            '<div class="my-auto py-6 relative z-10">' + centerpiece(p) + '</div>' +
-            '<div class="relative z-10">' +
-              '<h4 style="font-size:clamp(1.4rem,2.8vw,2.4rem)" class="font-black uppercase tracking-tight text-white leading-none mb-2">' + p.mainVisualTitle + '</h4>' +
-              '<p class="text-xs sm:text-sm md:text-base text-[#D7E2EA]/75 font-light max-w-xl leading-relaxed">' + p.mainVisualSubtitle + '</p>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
-  }
-
-  function renderProjects() {
-    document.getElementById('projects-list').innerHTML = PROJECTS.map(function (p, i) {
-      return projectCard(p, i, PROJECTS.length);
-    }).join('');
-  }
-
-  /* ---------- Fade-in on scroll ---------- */
-  function initFade() {
-    var els = document.querySelectorAll('[data-fade]');
-    var ease = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
-
-    Array.prototype.forEach.call(els, function (el) {
-      var x = parseFloat(el.getAttribute('data-x') || '0');
-      var y = parseFloat(el.getAttribute('data-y') || '30');
-      el.style.opacity = '0';
-      el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-    });
-
-    function show(el) {
-      var delay = parseFloat(el.getAttribute('data-delay') || '0');
-      var dur = parseFloat(el.getAttribute('data-duration') || '0.7');
-      el.style.transition = 'opacity ' + dur + 's ' + ease + ' ' + delay + 's, transform ' + dur + 's ' + ease + ' ' + delay + 's';
-      el.style.opacity = '1';
-      el.style.transform = 'translate(0,0)';
-    }
-
-    if (!('IntersectionObserver' in window)) {
-      Array.prototype.forEach.call(els, show);
-      return;
-    }
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          show(entry.target);
-          io.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '50px' });
-
-    Array.prototype.forEach.call(els, function (el) { io.observe(el); });
-  }
-
-  /* ---------- About text: letters light up on scroll ---------- */
-  var charSpans = [];
-  var aboutEl = null;
-
-  function initAboutText() {
-    aboutEl = document.getElementById('about-text');
-    if (!aboutEl) return;
-
-    var text = aboutEl.textContent;
-    var total = text.length;
-    var words = text.split(' ');
-    var counter = 0;
-    aboutEl.textContent = '';
-
-    words.forEach(function (word, wi) {
-      var w = document.createElement('span');
-      w.style.display = 'inline-block';
-      w.style.whiteSpace = 'nowrap';
-
-      word.split('').forEach(function (ch) {
-        var s = document.createElement('span');
-        s.textContent = ch;
-        s.style.opacity = '0.2';
-        charSpans.push({ el: s, start: counter / total, end: (counter + 1) / total });
-        counter++;
-        w.appendChild(s);
-      });
-      aboutEl.appendChild(w);
-
-      if (wi < words.length - 1) {
-        var sp = document.createElement('span');
-        sp.innerHTML = '&nbsp;';
-        sp.style.opacity = '0.2';
-        charSpans.push({ el: sp, start: counter / total, end: (counter + 1) / total });
-        counter++;
-        aboutEl.appendChild(sp);
+      if (wrap.firstChild) {
+        el.parentNode.replaceChild(wrap.firstChild, el);
       }
     });
   }
 
-  function updateAboutText() {
-    if (!aboutEl) return;
-    var vh = window.innerHeight;
-    var rect = aboutEl.getBoundingClientRect();
-    // progress 0 when top hits 80% of the viewport, 1 when bottom hits 20%
-    var p = (0.8 * vh - rect.top) / (0.6 * vh + rect.height);
-    p = Math.min(1, Math.max(0, p));
-    charSpans.forEach(function (c) {
-      var t = (p - c.start) / (c.end - c.start);
-      t = Math.min(1, Math.max(0, t));
-      c.el.style.opacity = String(0.2 + 0.8 * t);
-    });
+  var currentLang = 'en';
+  try {
+    var saved = localStorage.getItem('nullware_lang');
+    if (saved === 'ru' || saved === 'en') currentLang = saved;
+  } catch (e) {}
+
+  function t(key) {
+    return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
   }
 
-  /* ---------- Sticky project cards: scale down while stacking ---------- */
-  function updateSticky() {
-    var wraps = document.querySelectorAll('[data-sticky]');
-    Array.prototype.forEach.call(wraps, function (wrap) {
-      var index = parseInt(wrap.getAttribute('data-index'), 10);
-      var total = parseInt(wrap.getAttribute('data-total'), 10);
-      var rect = wrap.getBoundingClientRect();
-      var p = Math.min(1, Math.max(0, -rect.top / rect.height));
-      var target = 1 - (total - 1 - index) * 0.03;
-      var scale = 1 + (target - 1) * p;
-      wrap.querySelector('.sticky-card').style.transform = 'scale(' + scale + ')';
-    });
+  function pick(obj) {
+    if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
+      return obj[currentLang] || obj.en || '';
+    }
+    return obj || '';
   }
 
-  var ticking = false;
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function () {
-      updateAboutText();
-      updateSticky();
-      ticking = false;
+  function applyLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    try {
+      localStorage.setItem('nullware_lang', lang);
+    } catch (e) {}
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-lang]'), function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
     });
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function (el) {
+      var key = el.getAttribute('data-i18n');
+      el.textContent = t(key);
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-i18n-placeholder]'), function (el) {
+      var key = el.getAttribute('data-i18n-placeholder');
+      el.setAttribute('placeholder', t(key));
+    });
+
+    renderStats();
+    renderServices();
+    renderProjects();
+    renderStack();
+    renderSocials();
   }
 
-  /* ---------- Navigation + contact modal ---------- */
-  function initNav() {
-    Array.prototype.forEach.call(document.querySelectorAll('[data-scroll]'), function (btn) {
-      btn.addEventListener('click', function () {
-        var el = document.getElementById(btn.getAttribute('data-scroll'));
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+  function renderMarquee() {
+    var track = document.getElementById('marquee-track');
+    if (!track) return;
+    var chunk = MARQUEE_ITEMS.map(function (item) {
+      return '<span class="marquee-item"><span>' + item + '</span><span class="marquee-sep">·</span></span>';
+    }).join('');
+    track.innerHTML = chunk + chunk;
+  }
+
+  function renderStats() {
+    var container = document.getElementById('stats-grid');
+    if (!container) return;
+    container.innerHTML = STATS.map(function (s) {
+      return '' +
+        '<div class="stat-box">' +
+          '<span class="stat-value">' + s.value + '</span>' +
+          '<span class="stat-label">' + pick(s.label) + '</span>' +
+        '</div>';
+    }).join('');
+  }
+
+  function renderServices() {
+    var container = document.getElementById('services-list');
+    if (!container) return;
+    container.innerHTML = SERVICES.map(function (s) {
+      return '' +
+        '<div class="service-item">' +
+          '<span class="service-num">' + s.number + '</span>' +
+          '<div class="service-body">' +
+            '<h3 class="service-title">' + pick(s.name) + '</h3>' +
+            '<p class="service-desc">' + pick(s.description) + '</p>' +
+          '</div>' +
+        '</div>';
+    }).join('');
+  }
+
+  function renderProjects() {
+    var container = document.getElementById('projects-list');
+    if (!container) return;
+
+    container.innerHTML = PROJECTS.map(function (p) {
+      var imgs = Array.isArray(p.images) && p.images.length ? p.images : ['src/projects/' + p.id + '.png'];
+      var firstImg = imgs[0];
+      var features = pick(p.cardBottomList) || [];
+
+      var featuresHtml = features.map(function (item) {
+        return '<li class="project-feature-item"><span class="feature-dot"></span><span>' + item + '</span></li>';
+      }).join('');
+
+      var galleryBtns = imgs.length > 1
+        ? '<div class="gallery-controls" data-project-gallery="' + p.id + '">' +
+            '<button type="button" class="gallery-btn" data-dir="-1" aria-label="Previous image">‹</button>' +
+            '<button type="button" class="gallery-btn" data-dir="1" aria-label="Next image">›</button>' +
+          '</div>'
+        : '';
+
+      return '' +
+        '<article class="project-card" data-project-id="' + p.id + '">' +
+          '<div class="project-media">' +
+            '<div class="project-badges-overlay">' +
+              '<span class="badge-pill">' + p.number + ' · ' + pick(p.category) + '</span>' +
+              '<span class="badge-pill badge-tag">' + p.cardTopTag + '</span>' +
+            '</div>' +
+            '<div class="project-placeholder" id="placeholder-' + p.id + '">' +
+              '<div class="placeholder-icon-wrap">' + icon(p.iconName, 'icon-lg') + '</div>' +
+              '<span class="placeholder-title">' + p.mainVisualTitle + '</span>' +
+              '<span class="placeholder-sub">' + firstImg + '</span>' +
+            '</div>' +
+            '<img src="' + firstImg + '" alt="' + p.name + ' preview" class="project-img" data-img-index="0" ' +
+              'onload="this.style.opacity=\'1\'; var ph=document.getElementById(\'placeholder-' + p.id + '\'); if(ph) ph.style.display=\'none\';" ' +
+              'onerror="this.style.display=\'none\';" style="opacity:0;" />' +
+            galleryBtns +
+          '</div>' +
+
+          '<div class="project-content">' +
+            '<div class="project-top">' +
+              '<div>' +
+                '<h3 class="project-name">' + p.name + '</h3>' +
+                '<p class="project-sub">' + pick(p.mainVisualSubtitle) + '</p>' +
+              '</div>' +
+            '</div>' +
+
+            '<div class="project-highlight">' +
+              '<div class="project-highlight-title">' +
+                icon('shield-check', 'icon-xs') +
+                '<span>' + pick(p.cardTopTitle) + '</span>' +
+              '</div>' +
+              '<p class="project-highlight-desc">' + pick(p.cardTopSub) + '</p>' +
+            '</div>' +
+
+            '<div>' +
+              '<ul class="project-features">' + featuresHtml + '</ul>' +
+            '</div>' +
+
+            '<div class="project-footer">' +
+              '<span class="project-meta-tag">' + pick(p.cardBottomTitle) + '</span>' +
+              '<a href="' + p.href + '" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">' +
+                '<span>' + pick(p.cta) + '</span>' +
+                icon('arrow-up-right', 'icon-xs') +
+              '</a>' +
+            '</div>' +
+          '</div>' +
+        '</article>';
+    }).join('');
+
+    initProjectGalleries();
+  }
+
+  function initProjectGalleries() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-project-gallery]'), function (ctrl) {
+      var pid = ctrl.getAttribute('data-project-gallery');
+      var proj = PROJECTS.find(function (x) { return x.id === pid; });
+      if (!proj || !proj.images || proj.images.length < 2) return;
+
+      var card = ctrl.closest('.project-card');
+      var imgEl = card.querySelector('.project-img');
+      var phEl = document.getElementById('placeholder-' + pid);
+
+      Array.prototype.forEach.call(ctrl.querySelectorAll('[data-dir]'), function (btn) {
+        btn.addEventListener('click', function () {
+          var dir = parseInt(btn.getAttribute('data-dir'), 10);
+          var idx = parseInt(imgEl.getAttribute('data-img-index') || '0', 10);
+          var next = (idx + dir + proj.images.length) % proj.images.length;
+          imgEl.setAttribute('data-img-index', String(next));
+          imgEl.style.display = 'block';
+          imgEl.style.opacity = '0';
+          if (phEl) phEl.style.display = 'flex';
+          imgEl.src = proj.images[next];
+        });
       });
     });
   }
 
+  function renderStack() {
+    var container = document.getElementById('stack-list');
+    if (!container) return;
+    container.innerHTML = STACK.map(function (item) {
+      return '' +
+        '<div class="stack-item">' +
+          '<div class="stack-left">' +
+            '<span class="stack-name">' + item.name + '</span>' +
+            '<span class="stack-cat">' + pick(item.category) + '</span>' +
+          '</div>' +
+          '<span class="stack-level level-' + item.level + '">' + item.level + '</span>' +
+        '</div>';
+    }).join('');
+  }
+
+  function renderSocials() {
+    var container = document.getElementById('socials-list');
+    if (!container) return;
+
+    container.innerHTML = SOCIALS.map(function (s) {
+      if (s.copy) {
+        return '' +
+          '<button type="button" class="social-card" data-copy-email>' +
+            '<div class="social-info">' +
+              '<span class="social-label" data-copy-label>' + t('links.copyEmail') + '</span>' +
+              '<span class="social-handle">' + s.handle + '</span>' +
+            '</div>' +
+            '<span data-copy-icon>' + icon('copy', 'icon-sm accent-icon') + '</span>' +
+          '</button>';
+      }
+      return '' +
+        '<a href="' + s.href + '" target="_blank" rel="noopener noreferrer" class="social-card">' +
+          '<div class="social-info">' +
+            '<span class="social-label">' + s.label + '</span>' +
+            '<span class="social-handle">' + s.handle + '</span>' +
+          '</div>' +
+          icon('arrow-up-right', 'icon-sm') +
+        '</a>';
+    }).join('');
+
+    var copyBtn = container.querySelector('[data-copy-email]');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        var labelEl = copyBtn.querySelector('[data-copy-label]');
+        var iconEl = copyBtn.querySelector('[data-copy-icon]');
+        copyTextToClipboard(MAIL, function () {
+          labelEl.textContent = t('links.copied');
+          iconEl.innerHTML = icon('check', 'icon-sm text-success');
+          setTimeout(function () {
+            labelEl.textContent = t('links.copyEmail');
+            iconEl.innerHTML = icon('copy', 'icon-sm accent-icon');
+          }, 2000);
+        });
+      });
+    }
+  }
+
+  var startTime = Date.now();
+
+  function pad(n) {
+    return n < 10 ? '0' + n : String(n);
+  }
+
+  function updateLiveWidgets() {
+    var now = new Date();
+    var clockEl = document.getElementById('live-clock');
+    if (clockEl) {
+      clockEl.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+    }
+
+    var upEl = document.getElementById('live-uptime');
+    if (upEl) {
+      var diff = Math.floor((Date.now() - startTime) / 1000);
+      var mins = Math.floor(diff / 60);
+      var secs = diff % 60;
+      upEl.textContent = pad(mins) + 'm ' + pad(secs) + 's';
+    }
+  }
+
+  function initFade() {
+    var els = document.querySelectorAll('[data-fade]');
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduced || !('IntersectionObserver' in window)) {
+      Array.prototype.forEach.call(els, function (el) {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
+
+    Array.prototype.forEach.call(els, function (el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(18px)';
+      el.style.transition = 'opacity 0.55s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.55s cubic-bezier(0.25, 0.1, 0.25, 1)';
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '30px' });
+
+    Array.prototype.forEach.call(els, function (el) { io.observe(el); });
+  }
+
+  function initNav() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-scroll]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var target = document.getElementById(btn.getAttribute('data-scroll'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-lang]'), function (btn) {
+      btn.addEventListener('click', function () {
+        applyLanguage(btn.getAttribute('data-lang'));
+      });
+    });
+  }
+
+  function copyTextToClipboard(text, onSuccess) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(onSuccess, function () {
+        window.location.href = 'mailto:' + text;
+      });
+    } else {
+      window.location.href = 'mailto:' + text;
+    }
+  }
+
   function initModal() {
     var modal = document.getElementById('contact-modal');
+    if (!modal) return;
 
     function open() {
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
+
     function close() {
       modal.classList.remove('open');
       document.body.style.overflow = '';
@@ -331,53 +702,53 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-open-contact]'), function (btn) {
       btn.addEventListener('click', open);
     });
-    document.getElementById('modal-close').addEventListener('click', close);
+
+    var closeBtn = document.getElementById('modal-close');
+    if (closeBtn) closeBtn.addEventListener('click', close);
+
     modal.addEventListener('click', function (e) {
       if (e.target === modal) close();
     });
+
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') close();
     });
 
-    var idle = document.getElementById('copy-idle');
-    var done = document.getElementById('copy-done');
-    document.getElementById('copy-email').addEventListener('click', function () {
-      function showCopied() {
-        idle.classList.add('hidden');
-        done.classList.remove('hidden');
-        done.classList.add('inline-flex');
-        setTimeout(function () {
-          done.classList.add('hidden');
-          done.classList.remove('inline-flex');
-          idle.classList.remove('hidden');
-        }, 2000);
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(MAIL).then(showCopied, function () {
-          window.location.href = 'mailto:' + MAIL;
+    var copyBtn = document.getElementById('modal-copy-email');
+    var idle = document.getElementById('modal-copy-idle');
+    var done = document.getElementById('modal-copy-done');
+
+    if (copyBtn && idle && done) {
+      copyBtn.addEventListener('click', function () {
+        copyTextToClipboard(MAIL, function () {
+          idle.classList.add('hidden');
+          done.classList.remove('hidden');
+          setTimeout(function () {
+            done.classList.add('hidden');
+            idle.classList.remove('hidden');
+          }, 2000);
         });
-      } else {
-        window.location.href = 'mailto:' + MAIL;
-      }
-    });
+      });
+    }
   }
 
   function initForm() {
     var form = document.getElementById('contact-form');
     var status = document.getElementById('form-status');
     var btn = document.getElementById('form-submit');
+    var btnText = document.getElementById('form-submit-text');
     if (!form) return;
 
     function setStatus(text, ok) {
       status.textContent = text;
-      status.className = 'text-sm font-light ' + (ok ? 'text-emerald-400' : 'text-red-400');
+      status.className = 'form-status ' + (ok ? 'status-ok' : 'status-err');
     }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       btn.disabled = true;
-      btn.textContent = 'Sending...';
-      status.className = 'hidden';
+      if (btnText) btnText.textContent = t('modal.sending');
+      status.className = 'form-status hidden';
 
       fetch('https://formsubmit.co/ajax/' + MAIL, {
         method: 'POST',
@@ -391,28 +762,25 @@
           var success = res.ok && (res.data.success === true || res.data.success === 'true');
           if (!success) throw new Error('failed');
           form.reset();
-          setStatus('Message sent. Thank you!', true);
+          setStatus(t('modal.sentOk'), true);
         })
         .catch(function () {
-          setStatus('Could not send the message. Please email ' + MAIL + ' directly.', false);
+          setStatus(t('modal.sentErr'), false);
         })
         .then(function () {
           btn.disabled = false;
-          btn.textContent = 'Send Message';
+          if (btnText) btnText.textContent = t('modal.sendBtn');
         });
     });
   }
 
-  /* ---------- Init ---------- */
-  renderServices();
-  renderProjects();
+  renderMarquee();
+  applyLanguage(currentLang);
   replaceIcons(document);
-  initAboutText();
   initFade();
   initNav();
   initModal();
   initForm();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  onScroll();
+  updateLiveWidgets();
+  setInterval(updateLiveWidgets, 1000);
 })();
