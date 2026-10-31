@@ -420,8 +420,9 @@
   function renderMarquee() {
     var track = document.getElementById('marquee-track');
     if (!track) return;
-    var chunk = MARQUEE_ITEMS.map(function (item) {
-      return '<span class="marquee-item"><span>' + item + '</span><span class="marquee-sep">·</span></span>';
+    var chunk = MARQUEE_ITEMS.map(function (item, i) {
+      var cls = i % 2 === 0 ? 'mq-solid' : 'mq-outline';
+      return '<span class="marquee-item"><span class="' + cls + '">' + item + '</span><span class="marquee-sep">✦</span></span>';
     }).join('');
     track.innerHTML = chunk + chunk;
   }
@@ -553,16 +554,30 @@
   function renderStack() {
     var container = document.getElementById('stack-list');
     if (!container) return;
+    var bars = { Sr: 3, Mid: 2, Jr: 1 };
     container.innerHTML = STACK.map(function (item) {
+      var n = bars[item.level] || 1;
+      var dashes = '';
+      for (var i = 0; i < 3; i++) {
+        dashes += '<span class="lvl-dash' + (i < n ? ' on' : '') + '"></span>';
+      }
       return '' +
         '<div class="stack-item">' +
           '<div class="stack-left">' +
             '<span class="stack-name">' + item.name + '</span>' +
             '<span class="stack-cat">' + pick(item.category) + '</span>' +
           '</div>' +
-          '<span class="stack-level level-' + item.level + '">' + item.level + '</span>' +
+          '<div class="stack-level">' +
+            '<span class="lvl-dashes">' + dashes + '</span>' +
+            '<span class="lvl-label">' + item.level + '.</span>' +
+          '</div>' +
         '</div>';
     }).join('');
+
+    var count = document.getElementById('stack-count');
+    if (count) {
+      count.textContent = STACK.length + (currentLang === 'ru' ? ' пакетов' : ' packages');
+    }
   }
 
   function renderSocials() {
@@ -618,6 +633,12 @@
     var clockEl = document.getElementById('live-clock');
     if (clockEl) {
       clockEl.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+    }
+
+    var tzEl = document.getElementById('live-tz');
+    if (tzEl) {
+      var off = -now.getTimezoneOffset() / 60;
+      tzEl.textContent = 'UTC' + (off >= 0 ? '+' : '−') + Math.abs(off);
     }
 
     var upEl = document.getElementById('live-uptime');
