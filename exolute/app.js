@@ -23,7 +23,40 @@ document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>navigate(b.dat
 function openPicker(target){pickTarget=target;$('search').value='';renderCurrencies();$('picker').showModal();$('search').focus()}
 function renderCurrencies(){const q=$('search').value.trim().toLowerCase(),list=$('currency-list');list.replaceChildren();let names;try{names=new Intl.DisplayNames([prefs.language],{type:'currency'})}catch{}const filtered=currencies.filter(c=>`${c[0]} ${c[1]} ${names?.of(c[0])||''}`.toLowerCase().includes(q)).sort((a,b)=>Number(prefs.favorites.includes(b[0]))-Number(prefs.favorites.includes(a[0])));for(const c of filtered){const div=document.createElement('div');div.className='currency-item';const b=document.createElement('button'),span=document.createElement('span'),small=document.createElement('small');span.textContent=c[0];small.textContent=names?.of(c[0])||c[1];span.append(small);b.append(flag(c[0]),span);b.onclick=()=>{prefs[pickTarget]=c[0];if(pickTarget==='default1')prefs.from=c[0];if(pickTarget==='default2')prefs.to=c[0];persist();apply();$('picker').close();calculate()};const star=document.createElement('button');star.className='star';star.textContent=prefs.favorites.includes(c[0])?'★':'☆';star.setAttribute('aria-label',tr('Избранное: ','Favorite: ')+c[0]);star.setAttribute('aria-pressed',String(prefs.favorites.includes(c[0])));star.onclick=()=>{prefs.favorites=prefs.favorites.includes(c[0])?prefs.favorites.filter(x=>x!==c[0]):[...prefs.favorites,c[0]].slice(-30);persist();renderCurrencies()};div.append(b,star);list.append(div)}if(!filtered.length)list.textContent=tr('Ничего не найдено','No currencies found')}
 ['from','to','default1','default2'].forEach(id=>$(id).onclick=()=>openPicker(id));$('search').oninput=renderCurrencies;$('close-picker').onclick=()=>$('picker').close();$('amount').value=prefs.amount;$('fee').value=prefs.fee||'';
-$('amount').oninput=()=>{const v=$('amount').value;if(!/^\d*([.,]\d*)?$/.test(v)){$('amount').value=prefs.amount;return}prefs.amount=v;persist();calculate()};$('fee').oninput=()=>{prefs.fee=$('fee').value;persist();calculate()};$('swap').onclick=()=>{[prefs.from,prefs.to]=[prefs.to,prefs.from];persist();apply();calculate()};
+// Keep conversion state synchronous, even while a previous swap is animating.
+const swapMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let swapAnimations = [];
+function cancelSwapAnimations() {
+  swapAnimations.forEach(animation => animation.cancel());
+  swapAnimations = [];
+}
+function swapCurrencies() {
+  cancelSwapAnimations();
+  const from = $('from'), to = $('to');
+  const beforeFrom = from.getBoundingClientRect();
+  const beforeTo = to.getBoundingClientRect();
+  [prefs.from, prefs.to] = [prefs.to, prefs.from];
+  persist();
+  apply();
+  calculate();
+  if (swapMotion.matches || typeof from.animate !== 'function') return;
+  const timing = {duration: 340, easing: 'cubic-bezier(.22, 1, .36, 1)'};
+  function move(element, origin) {
+    const target = element.getBoundingClientRect();
+    return element.animate([
+      {transform: `translate(${origin.left - target.left}px, ${origin.top - target.top}px)`, opacity: .7},
+      {transform: 'translate(0, 0)', opacity: 1}
+    ], timing);
+  }
+  swapAnimations = [move(from, beforeTo), move(to, beforeFrom)];
+  const arrows = $('swap').querySelector('img');
+  if (arrows) swapAnimations.push(arrows.animate([
+    {transform: 'rotate(0deg)'}, {transform: 'rotate(180deg)'}
+  ], timing));
+  swapAnimations.push($('result').animate([{opacity: .5}, {opacity: 1}], timing));
+}
+swapMotion.addEventListener('change', cancelSwapAnimations);
+$('amount').oninput=()=>{const v=$('amount').value;if(!/^\d*([.,]\d*)?$/.test(v)){$('amount').value=prefs.amount;return}prefs.amount=v;persist();calculate()};$('fee').oninput=()=>{prefs.fee=$('fee').value;persist();calculate()};$('swap').onclick=swapCurrencies;
 ['theme','language','round'].forEach(id=>$(id).onchange=()=>{prefs[id]=$(id).type==='checkbox'?$(id).checked:$(id).value;persist();apply()});$('reset').onclick=()=>{if(confirm(tr('Сбросить настройки?','Reset settings?'))){prefs={...defaults,favorites:[]};$('amount').value='';$('fee').value='';persist();apply()}};$('clear').onclick=()=>{if(confirm(tr('Очистить историю конвертаций?','Clear conversion history?'))){clearTimeout(saveTimer);history=[];storeHistory();renderHistory()}};
 $('result').onclick=async()=>{if(!Number.isFinite(lastResult))return;try{await navigator.clipboard.writeText(String(lastResult));toast(tr('Скопировано','Copied'))}catch{toast(tr('Копирование недоступно','Copy unavailable'))}};
 $('share').onclick=async()=>{if(!Number.isFinite(lastResult))return;const text=`Exolute: ${prefs.amount||0} ${prefs.from} = ${format(lastResult)} ${prefs.to} (${prefs.fee||0}%)`;try{if(navigator.share)await navigator.share({title:'Exolute',text});else{await navigator.clipboard.writeText(text);toast(tr('Расчёт скопирован','Conversion copied'))}}catch(e){if(e.name!=='AbortError')toast(tr('Не удалось поделиться','Unable to share'))}};

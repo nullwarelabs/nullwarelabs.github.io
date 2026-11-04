@@ -27,3 +27,6 @@ button img.flag,html[data-theme=dark] button img.flag{filter:none}
 /* Hide native number steppers only in the commission field. */
 #fee{appearance:textfield;-moz-appearance:textfield}
 #fee::-webkit-inner-spin-button,#fee::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+
+/* Currency cells travel within the converter during a swap. */
+.converter .currency{position:relative;z-index:1}
