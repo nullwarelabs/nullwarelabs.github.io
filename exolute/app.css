@@ -2,7 +2,6 @@
 
 /* Keep flag photography in its original colors in both themes. */
 button img.flag,html[data-theme=dark] button img.flag{filter:none}
-.info .text-button{padding:0;text-align:left;display:block;margin:4px 0 10px}
 .info #status{margin:0;line-height:1.5;font-size:14px}
 .info strong{display:block;line-height:1.4}
 .info p{line-height:1.45}
