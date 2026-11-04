@@ -1,4 +1,4 @@
-const CACHE='exolute-v3';
+const CACHE='exolute-v4';
 const FILES=['/exolute/','/exolute/index.html','/exolute/app.css','/exolute/app.js','/exolute/theme.js','/exolute/manifest.webmanifest','/exolute/assets/currencies.json','/exolute/assets/nunito_semibold.ttf','/exolute/assets/nunito_bold.ttf','/exolute/assets/nunito_extrabold.ttf','/exolute/assets/ic_settings.svg','/src/projects/exolute-800.webp','/src/logo/nobg%20logo.webp','/exolute/assets/ic_home.svg','/exolute/assets/ic_history.svg','/exolute/assets/ic_reverse.svg','/exolute/assets/delete.svg','/exolute/assets/icon-192.png','/exolute/assets/icon-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('exolute-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
