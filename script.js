@@ -85,6 +85,8 @@
       name: 'Exolute Converter',
       href: EXOLUTE_PLAY_URL,
       cta: { en: 'Google Play', ru: 'Google Play' },
+      onlineHref: '/exolute/',
+      onlineCta: { en: 'Try online', ru: 'Попробовать онлайн' },
       images: ['src/projects/exolute.png'],
       cardTopTitle: { en: 'Offline-Ready Mode', ru: 'Работа без интернета' },
       cardTopSub: {
@@ -520,10 +522,14 @@
 
             '<div class="project-footer">' +
               '<span class="project-meta-tag">' + pick(p.cardBottomTitle) + '</span>' +
+              '<div class="project-actions">' +
               '<a href="' + p.href + '" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">' +
                 '<span>' + pick(p.cta) + '</span>' +
                 icon('arrow-up-right', 'icon-xs') +
               '</a>' +
+              (p.onlineHref ? '<a href="' + p.onlineHref + '" class="btn btn-secondary btn-sm project-online">' +
+                '<span>' + pick(p.onlineCta) + '</span>' + icon('arrow-up-right', 'icon-xs') + '</a>' : '') +
+              '</div>' +
             '</div>' +
           '</div>' +
         '</article>';

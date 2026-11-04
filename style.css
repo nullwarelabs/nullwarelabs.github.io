@@ -477,8 +477,12 @@ ul { list-style: none; }
 .project-feature-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; font-weight: 300; color: var(--text); }
 .feature-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cream); margin-top: 9px; flex-shrink: 0; }
 
+.project-actions { display: flex; flex-wrap: wrap; gap: 10px; max-width: 100%; }
+.project-actions .btn { white-space: nowrap; }
+.project-online { background: transparent; }
+
 .project-footer {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
   padding-top: 16px; margin-top: auto;
   border-top: 1px solid var(--glass-border);
 }
@@ -716,6 +720,7 @@ ul { list-style: none; }
   .clock-pill { display: none; }
   .project-footer { flex-direction: column; align-items: stretch; }
   .project-footer .btn { width: 100%; }
+  .project-actions { flex-direction: column; }
   .modal-panel { padding: 24px 20px; }
 }
 
