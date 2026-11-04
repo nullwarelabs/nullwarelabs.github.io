@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var MAIL = 'nullwarelabs@duck.com';
+  var MAIL = 'nullwr@duck.com';
   var SWIFTSERVICE_URL = 'https://github.com/nullwrs/nullwrs.github.io/releases/latest/download/SwiftService_Setup.exe';
   var EXOLUTE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.saieesoft.exolute&pcampaignid=web_share';
   var ASKANONYMOUS_URL = 'https://t.me/AskAnonymousBot';
