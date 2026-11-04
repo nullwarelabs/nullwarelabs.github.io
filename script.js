@@ -2,7 +2,7 @@
   'use strict';
 
   var MAIL = 'nullwarelabs@duck.com';
-  var SWIFTSERVICE_URL = 'https://github.com/nullwarelabs/nullwarelabs.github.io/releases/latest/download/SwiftService_Setup.exe';
+  var SWIFTSERVICE_URL = 'https://github.com/nullwrs/nullwrs.github.io/releases/latest/download/SwiftService_Setup.exe';
   var EXOLUTE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.saieesoft.exolute&pcampaignid=web_share';
   var ASKANONYMOUS_URL = 'https://t.me/AskAnonymousBot';
   var VAULTYS_URL = 'https://t.me/VaultysBot';
@@ -248,8 +248,8 @@
     {
       id: 'github',
       label: 'GitHub',
-      handle: 'github.com/nullwarelabs',
-      href: 'https://github.com/nullwarelabs',
+      handle: 'github.com/nullwrs',
+      href: 'https://github.com/nullwrs',
       icon: 'github'
     },
     {
