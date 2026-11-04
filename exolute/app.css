@@ -23,3 +23,7 @@ button img.flag,html[data-theme=dark] button img.flag{filter:none}
 .currency>span:first-child,.settings label button>span:first-child,.currency-item>button:first-child>span:first-child{display:inline-flex;flex:0 0 auto}
 .currency-item>button:first-child{min-width:0}
 .currency-item>button:first-child>span:last-child{min-width:0;overflow-wrap:anywhere}
+
+/* Hide native number steppers only in the commission field. */
+#fee{appearance:textfield;-moz-appearance:textfield}
+#fee::-webkit-inner-spin-button,#fee::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
